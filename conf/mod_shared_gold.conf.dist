@@ -1,0 +1,65 @@
+#
+# Shared Gold Module Configuration
+#
+# When playerbots loot gold, it goes directly to their master's wallet.
+# Combined with the "gold" BotCheat, this creates a shared wallet system:
+# - Bots don't spend their own gold (gold cheat)
+# - Bots' looted gold goes to you (this module)
+# - Bots' vendor sales and quest-reward money go to you too (BotSales, BotQuestMoney)
+#
+
+########################################
+# SharedGold module configuration
+########################################
+
+#
+#    SharedGold.Enable
+#        Description: Enable the shared gold feature
+#        Default:     1 - (Enabled)
+#                     0 - (Disabled)
+#
+
+SharedGold.Enable = 1
+
+#
+#    SharedGold.Announce
+#        Description: Announce to players on login that shared gold is enabled
+#        Default:     1 - (Enabled)
+#                     0 - (Disabled)
+#
+
+SharedGold.Announce = 1
+
+#
+#    SharedGold.GroupAll
+#        Description: When you loot gold while grouped ONLY with your own bots, you get the
+#                     whole amount instead of the core's equal split (bots' shares would
+#                     otherwise stay stranded in their own wallets). Groups that contain
+#                     another human or someone else's bot keep the normal split.
+#        Default:     1 - (Enabled)
+#                     0 - (Disabled)
+#
+
+SharedGold.GroupAll = 1
+
+#
+#    SharedGold.BotSales
+#        Description: Gold a bot earns by vendoring items goes to its master instead of being
+#                     discarded (mod-playerbots restores the bot's old money after a sale when
+#                     the "gold" cheat is on). Only applies to bots whose master is a real player.
+#        Default:     1 - (Enabled)
+#                     0 - (Disabled)
+#
+
+SharedGold.BotSales = 1
+
+#
+#    SharedGold.BotQuestMoney
+#        Description: Money a bot receives as a quest reward goes to its master instead of
+#                     staying in the bot's own wallet. Only applies to bots whose master is a
+#                     real player. Quests that cost money are not affected.
+#        Default:     1 - (Enabled)
+#                     0 - (Disabled)
+#
+
+SharedGold.BotQuestMoney = 1
