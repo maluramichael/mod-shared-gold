@@ -24,11 +24,22 @@ SharedGold.Enable = 1
 #
 #    SharedGold.Announce
 #        Description: Announce to players on login that shared gold is enabled
-#        Default:     1 - (Enabled)
-#                     0 - (Disabled)
+#        Default:     0 - (Disabled)
+#                     1 - (Enabled)
 #
 
-SharedGold.Announce = 1
+SharedGold.Announce = 0
+
+#
+#    SharedGold.Messages
+#        Description: Chat lines "[Shared Gold] <bot> looted ... for you", "... earned ... from a quest
+#                     for you" and "You looted ... (whole share ...)". 0 = the module never writes to
+#                     the chat (the gold is still redirected).
+#        Default:     0 - (Muted)
+#                     1 - (Enabled)
+#
+
+SharedGold.Messages = 0
 
 #
 #    SharedGold.GroupAll

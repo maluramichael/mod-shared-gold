@@ -31,7 +31,8 @@
 #include <sstream>
 
 static bool SharedGoldEnabled = true;
-static bool SharedGoldAnnounce = true;
+static bool SharedGoldAnnounce = false;
+static bool SharedGoldMessages = false;
 static bool SharedGoldGroupAll = true;
 static bool SharedGoldBotSales = true;
 static bool SharedGoldBotQuestMoney = true;
@@ -202,8 +203,9 @@ public:
 
         amount = 0;
 
-        // Sales are silent (one message per item would flood the chat); quest rewards are worth a line.
-        if (isQuest)
+        // Sales are always silent (one message per item would flood the chat); quest rewards get a line
+        // unless SharedGold.Messages = 0.
+        if (isQuest && SharedGoldMessages)
         {
             std::ostringstream msg;
             msg << "|cff4CFF00[Shared Gold]|r " << player->GetName() << " earned" << FormatMoney(gold) << " from a quest for you.";
@@ -229,9 +231,12 @@ public:
             uint32 const gold = loot->gold;
             master->ModifyMoney(gold);
 
-            std::ostringstream msg;
-            msg << "|cff4CFF00[Shared Gold]|r " << player->GetName() << " looted" << FormatMoney(gold) << " for you.";
-            ChatHandler(master->GetSession()).SendSysMessage(msg.str().c_str());
+            if (SharedGoldMessages)
+            {
+                std::ostringstream msg;
+                msg << "|cff4CFF00[Shared Gold]|r " << player->GetName() << " looted" << FormatMoney(gold) << " for you.";
+                ChatHandler(master->GetSession()).SendSysMessage(msg.str().c_str());
+            }
 
             // Zero it so neither the bot nor the core's group split pays it out again.
             loot->gold = 0;
@@ -245,9 +250,12 @@ public:
             player->ModifyMoney(gold);
 
             // The core's own "you loot X" notice will show 0 once loot->gold is zeroed, so say what we did.
-            std::ostringstream msg;
-            msg << "|cff4CFF00[Shared Gold]|r You looted" << FormatMoney(gold) << " (whole share, no split with your bots).";
-            ChatHandler(player->GetSession()).SendSysMessage(msg.str().c_str());
+            if (SharedGoldMessages)
+            {
+                std::ostringstream msg;
+                msg << "|cff4CFF00[Shared Gold]|r You looted" << FormatMoney(gold) << " (whole share, no split with your bots).";
+                ChatHandler(player->GetSession()).SendSysMessage(msg.str().c_str());
+            }
 
             loot->gold = 0;
         }
@@ -262,7 +270,8 @@ public:
     void OnAfterConfigLoad(bool /*reload*/) override
     {
         SharedGoldEnabled = sConfigMgr->GetOption<bool>("SharedGold.Enable", true);
-        SharedGoldAnnounce = sConfigMgr->GetOption<bool>("SharedGold.Announce", true);
+        SharedGoldAnnounce = sConfigMgr->GetOption<bool>("SharedGold.Announce", false);
+        SharedGoldMessages = sConfigMgr->GetOption<bool>("SharedGold.Messages", false);
         SharedGoldGroupAll = sConfigMgr->GetOption<bool>("SharedGold.GroupAll", true);
         SharedGoldBotSales = sConfigMgr->GetOption<bool>("SharedGold.BotSales", true);
         SharedGoldBotQuestMoney = sConfigMgr->GetOption<bool>("SharedGold.BotQuestMoney", true);
