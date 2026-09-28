@@ -1,5 +1,10 @@
 # mod-shared-gold
 
+<!-- links:start -->
+[![Support me on Ko-fi](https://malura.de/assets/badge/kofi.svg)](https://malura.de/go/kofi?ref=mod-shared-gold)
+[![Check out my page](https://malura.de/assets/badge/malura.svg)](https://malura.de/go/site?ref=mod-shared-gold)
+<!-- links:end -->
+
 One wallet for AzerothCore + mod-playerbots: the character you play holds all the gold, your bots never keep any.
 Meant for a solo player with his own bot party and `AiPlayerbot.BotCheats` containing `gold` (bots buy, repair and
 train for free).
